@@ -9,15 +9,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
+
+
+
+
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
 
@@ -36,6 +43,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
     }
  
 	
+	@Bean
+	public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+	    return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
+	}
+
+	
 	/*Looking configuration in application.properties file*/
     @Bean
     public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
@@ -45,11 +58,15 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
+        //http.authorizeRequests().anyRequest().authenticated();
+//          .hasRole("wms-user")
+//          .anyRequest()
+//          .permitAll();
+        
         http.authorizeRequests()
-          .antMatchers("/customer/*")
-          .hasRole("wms-user")
-          .anyRequest()
-          .permitAll();
+        .antMatchers("/**").authenticated();
+ 
     }
+    
 
 }

@@ -27,7 +27,12 @@ public class CustomerResource {
 	
 	
 	@GetMapping("/")
+	//@PreAuthorize("hasRole('ROLE_WMS_USER')")
 	public ResponseEntity<?> getAllCustomers(){
+		
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		//System.out.println(">>" + auth.getAuthorities());
 	
 		List<Customer> result = customerService.getAllCustomer();
 		
