@@ -1,5 +1,7 @@
 package cdl.wh.warehousecustomer.security;
 
+import java.util.Arrays;
+
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
@@ -17,6 +19,9 @@ import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 
@@ -62,11 +67,26 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
 //          .hasRole("wms-user")
 //          .anyRequest()
 //          .permitAll();
-        
-        http.authorizeRequests()
+        http
+		.cors().and().authorizeRequests()
         .antMatchers("/**").authenticated();
  
     }
+    
+    @Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowCredentials(false);
+		configuration.setMaxAge(3600L);
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
     
 
 }
