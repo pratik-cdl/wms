@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cdl.wh.warehousecustomer.modal.Customer;
-import cdl.wh.warehousecustomer.modal.Product;
 import cdl.wh.warehousecustomer.proxy.ProductProxy;
 import cdl.wh.warehousecustomer.repository.CustomerRepository;
 
@@ -29,6 +28,12 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		return customerRepository.findAll();
 		
+	}
+
+	@Override
+	public Customer getCustomer(Long id) {
+		// TODO Auto-generated method stub
+		return customerRepository.findById(id).get();
 	}
 
 }

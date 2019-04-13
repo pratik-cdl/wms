@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,15 +30,28 @@ public class CustomerResource {
 	private CustomerService customerService;
 	
 	
-	@GetMapping("/")
+	@GetMapping("/all")
 	@PreAuthorize("hasRole('ROLE_WMS_USER')")
-	public ResponseEntity<?> getAllCustomers(){
+	public ResponseEntity<?> getAllCustomer(){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		System.out.println(">>" + auth.getAuthorities());
 	
 		List<Customer> result = customerService.getAllCustomer();
+		
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_WMS_USER')")
+	public ResponseEntity<?> getAllCustomerDetails(@PathVariable("id") Long id){
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		System.out.println(">>" + auth.getAuthorities());
+	
+		Customer result = customerService.getCustomer(id);
 		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}

@@ -8,4 +8,6 @@ public interface CustomerService {
 
 	List<Customer> getAllCustomer();
 	
+	Customer getCustomer(Long customerid);
+	
 }
