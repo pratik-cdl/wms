@@ -23,7 +23,7 @@ import cdl.wh.warehouseproduct.service.ProductService;
 
 
 @RestController
-
+@RequestMapping("api/product")
 public class ProductResource {
 
 	private static Logger log = LoggerFactory.getLogger(ProductResource.class);
@@ -33,7 +33,7 @@ public class ProductResource {
 	private ProductService productService;
 	
 	
-	@GetMapping("/api/{employee}")
+	@GetMapping("/all")
 	public ResponseEntity<?> getAllProduct(){
 		
 		//Authentication auth = KeycloakSecurityContext.getContext().getAuthentication();
