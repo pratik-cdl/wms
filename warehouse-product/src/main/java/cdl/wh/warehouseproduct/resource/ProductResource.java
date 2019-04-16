@@ -48,9 +48,9 @@ public class ProductResource {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getAllCustomerDetails(@PathVariable("id") Long id){
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		System.out.println(">>" + auth.getAuthorities());
+		//System.out.println(">>" + auth.getAuthorities());
 	
 		Product result = productService.getProduct(id);
 		
