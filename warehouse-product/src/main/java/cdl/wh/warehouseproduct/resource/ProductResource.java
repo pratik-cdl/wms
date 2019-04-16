@@ -25,7 +25,7 @@ import cdl.wh.warehouseproduct.service.ProductService;
 
 
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("product")
 public class ProductResource {
 
 	private static Logger log = LoggerFactory.getLogger(ProductResource.class);
