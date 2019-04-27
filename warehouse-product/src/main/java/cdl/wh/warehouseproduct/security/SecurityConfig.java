@@ -1,4 +1,4 @@
-package cdl.wh.warehousecustomer.security;
+package cdl.wh.warehouseproduct.security;
 
 import java.util.Arrays;
 
@@ -46,7 +46,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
 	
 	@Bean
 	public GrantedAuthorityDefaults grantedAuthorityDefaults() {
-	    return new GrantedAuthorityDefaults("ROLE_"); // Remove the ROLE_ prefix
+	    return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
 	}
 
 	

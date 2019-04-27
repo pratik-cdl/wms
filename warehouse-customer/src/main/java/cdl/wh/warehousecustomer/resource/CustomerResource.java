@@ -1,6 +1,5 @@
 package cdl.wh.warehousecustomer.resource;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,8 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +23,7 @@ import cdl.wh.warehousecustomer.modal.Customer;
 import cdl.wh.warehousecustomer.service.CustomerService;
 
 @RestController
-@RequestMapping("api/customer")
+@RequestMapping("customer")
 public class CustomerResource {
 
 	private static Logger log = LoggerFactory.getLogger(CustomerResource.class);
@@ -31,7 +34,7 @@ public class CustomerResource {
 	
 	
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('ROLE_WMS_USER')")
+	@PreAuthorize("hasRole('ROLE_WMS_ADMIN')")
 	public ResponseEntity<?> getAllCustomer(){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -44,8 +47,8 @@ public class CustomerResource {
 	}
 	
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_WMS_USER')")
-	public ResponseEntity<?> getAllCustomerDetails(@PathVariable("id") Long id){
+	@PreAuthorize("hasRole('ROLE_VIEW_CUSTOMER')")
+	public ResponseEntity<?> getCustomer(@PathVariable("id") Long id){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
@@ -56,10 +59,23 @@ public class CustomerResource {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
-	@GetMapping("/helloWorld")
-	public ResponseEntity<?> demo(Principal p){
 	
-		System.out.println("principal :: "+p);
-		return new ResponseEntity<>("helloWorld",HttpStatus.OK);
+	
+	@PostMapping("/")
+	public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
+		System.out.println("createCustomer :: ");
+		return new ResponseEntity<>("{'msg':'createCustomer'}",HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+		System.out.println("updateCustomer :: ");
+		return new ResponseEntity<>("{'msg':'updateCustomer'}",HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteCustomer(@PathVariable("id") Long id){
+		System.out.println("deleteCustomer :: ");
+		return new ResponseEntity<>("{'msg':'deleteCustomer'}",HttpStatus.OK);
 	}
 }
