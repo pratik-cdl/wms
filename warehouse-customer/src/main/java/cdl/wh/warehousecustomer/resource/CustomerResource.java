@@ -47,7 +47,7 @@ public class CustomerResource {
 	}
 	
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_VIEW_CUSTOMER')")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER_VIEW')")
 	public ResponseEntity<?> getCustomer(@PathVariable("id") Long id){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -68,9 +68,11 @@ public class CustomerResource {
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER_VIEW')")
 	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
 		System.out.println("updateCustomer :: ");
-		return new ResponseEntity<>("{'msg':'updateCustomer'}",HttpStatus.OK);
+		customer = customerService.updateCustomer(customer);
+		return new ResponseEntity<>(customer,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")

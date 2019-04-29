@@ -36,4 +36,12 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerRepository.findById(id).get();
 	}
 
+	@Override
+	public Customer updateCustomer(Customer customer) {
+		
+		return customerRepository.saveAndFlush(customer);
+	}
+	
+	
+
 }
