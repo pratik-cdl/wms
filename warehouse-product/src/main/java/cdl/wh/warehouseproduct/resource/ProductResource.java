@@ -66,7 +66,7 @@ public class ProductResource {
 	}
 	
 	@PostMapping("/")
-	@PreAuthorize("hasRole('ROLE_PRODUCT_DELETE')")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_CREATE')")
 	public ResponseEntity<?> createProduct(@RequestBody Product p){
 		System.out.println("getProduct :: ");
 		return new ResponseEntity<>("{'msg':'createProduct'}",HttpStatus.OK);

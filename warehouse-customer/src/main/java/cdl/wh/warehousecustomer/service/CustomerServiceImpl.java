@@ -41,6 +41,14 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		return customerRepository.saveAndFlush(customer);
 	}
+
+	@Override
+	public Customer addNewCustomer(Customer customer) {
+		return customerRepository.saveAndFlush(customer);
+	}
+	
+	
+	
 	
 	
 

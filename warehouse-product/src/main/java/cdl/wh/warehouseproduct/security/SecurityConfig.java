@@ -28,6 +28,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
+	
+	
 
 	@Bean
 	@Override
@@ -59,13 +61,10 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        //http.authorizeRequests().anyRequest().authenticated();
-//          .hasRole("wms-user")
-//          .anyRequest()
-//          .permitAll();
-        http
-		.cors().and().authorizeRequests()
-        .antMatchers("/**").authenticated();
+
+        http.authorizeRequests()
+        .antMatchers("/**").authenticated().and().csrf().disable();
+
  
     }
     
