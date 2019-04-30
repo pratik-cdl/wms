@@ -22,20 +22,39 @@ public class ProductServiceImpl implements ProductService{
 	private ProductProxy productProxy;
 
 	@Override
-	public List<Product> getAllProduct() {
+	public List<Product> getAllProduct(Long customerId) {
 		
 		//List<Product> list = productProxy.getAllProduct();
 		
 		//System.out.println("list --> "+ list);
 		
-		return productRepository.findAll();
+		return productRepository.findByCustomerId(customerId);
 		
 	}
 
 	@Override
-	public Product getProduct(Long id) {
+	public Product getProduct(Long productId) {
 		// TODO Auto-generated method stub
-		return productRepository.findById(id).get();
+		return productRepository.findById(productId).get();
 	}
+
+	@Override
+	public Product updateProduct(Product product) {
+		
+		return productRepository.saveAndFlush(product);
+	}
+	
+	@Override
+	public Product addNewProduct(Product product) {
+		return productRepository.saveAndFlush(product);
+	}
+
+	@Override
+	public void deleteProduct(Long productId) {
+		
+		productRepository.deleteById(productId);
+		
+	}
+	
 
 }

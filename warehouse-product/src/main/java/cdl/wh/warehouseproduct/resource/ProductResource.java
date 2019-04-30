@@ -35,15 +35,15 @@ public class ProductResource {
 	private ProductService productService;
 	
 	
-	@GetMapping("/all")
-	@PreAuthorize("hasRole('ROLE_WMS_ADMIN')")
-	public ResponseEntity<?> getAllProduct(){
+	@GetMapping("/all/{customerId}")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
+	public ResponseEntity<?> getAllProduct(@PathVariable("customerId") Long customerId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		System.out.println(">>" + auth.getAuthorities());
 	
 		
-		List<Product> result = productService.getAllProduct();
+		List<Product> result = productService.getAllProduct(customerId);
 		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
@@ -59,23 +59,27 @@ public class ProductResource {
 	
 	
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_PRODUCT_DELETE')")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
 	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
-		System.out.println("deleteProduct :: ");
-		return new ResponseEntity<>("{'msg':'deleteProduct'}",HttpStatus.OK);
+		System.out.println("deleteProduct :: "+id);
+		productService.deleteProduct(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PostMapping("/")
-	@PreAuthorize("hasRole('ROLE_PRODUCT_CREATE')")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
 	public ResponseEntity<?> createProduct(@RequestBody Product p){
-		System.out.println("getProduct :: ");
-		return new ResponseEntity<>("{'msg':'createProduct'}",HttpStatus.OK);
+		System.out.println("createProduct :: "+p);
+		p = productService.addNewProduct(p);
+		return new ResponseEntity<>(p,HttpStatus.OK);
 	}
 	
-	@PutMapping("/")
+	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
 	public ResponseEntity<?> updateProduct(@RequestBody Product p){
-		System.out.println("updateProduct :: ");
-		return new ResponseEntity<>("{'msg':'updateProduct'}",HttpStatus.OK);
+		System.out.println("updateProduct :: "+p);
+		p = productService.updateProduct(p);
+		return new ResponseEntity<>(p,HttpStatus.OK);
 	}
 	
 	

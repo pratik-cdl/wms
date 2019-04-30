@@ -73,15 +73,16 @@ public class CustomerResource {
 	@PreAuthorize("hasRole('ROLE_CUSTOMER_CREATE')")
 	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
 		System.out.println("updateCustomer :: ");
-		//customer = customerService.updateCustomer(customer);
-		//return new ResponseEntity<>(customer,HttpStatus.OK);
-		return new ResponseEntity<>("{'msg':'update'}",HttpStatus.OK);
+		customer = customerService.updateCustomer(customer);
+		return new ResponseEntity<>(customer,HttpStatus.OK);
+		
 	}
 	
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_CUSTOMER_DELETE')")
 	public ResponseEntity<?> deleteCustomer(@PathVariable("id") Long id){
-		System.out.println("deleteCustomer :: ");
-		return new ResponseEntity<>("{'msg':'deleteCustomer'}",HttpStatus.OK);
+		System.out.println("deleteCustomer :: "+id);
+		customerService.deleteCustomer(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

@@ -63,10 +63,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter{
 //          .hasRole("wms-user")
 //          .anyRequest()
 //          .permitAll();
-        http
-		.cors().and().authorizeRequests()
-        .antMatchers("/**").authenticated();
- 
+      /*  http.cors()
+        .and().authorizeRequests().antMatchers("/**").authenticated();*/
+        
+        
+        http.csrf().disable().cors()
+        .and().authorizeRequests().antMatchers("/**").authenticated();
     }
     
     @Bean

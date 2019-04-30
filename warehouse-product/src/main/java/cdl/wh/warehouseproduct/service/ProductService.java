@@ -8,8 +8,14 @@ import cdl.wh.warehouseproduct.modal.Product;
 
 public interface ProductService {
 
-	List<Product> getAllProduct();
+	List<Product> getAllProduct(Long customerId);
 	
-	Product getProduct(Long customerid);
+	Product getProduct(Long productId);
+	
+	Product updateProduct(Product product);
+
+	Product addNewProduct(Product product);
+	
+	void deleteProduct(Long productId);
 	
 }
