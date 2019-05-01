@@ -93,8 +93,4 @@ public class Product {
 				+ ", fifo=" + fifo + ", fefo=" + fefo + "]";
 	}
 	
-	
-	
-	
-	
 }

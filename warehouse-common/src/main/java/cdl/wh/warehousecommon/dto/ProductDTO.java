@@ -1,34 +1,13 @@
-package cdl.wh.warehouseproduct.modal;
+package cdl.wh.warehousecommon.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+public class ProductDTO {
 
-@Entity
-public class Product {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="customer_id")
 	private Long customerId;
-	
-	@Column(name="code")
 	private String code;
-	
-	@Column(name="name")
 	private String name;
-	
-	@Column(name="uom")
 	private Integer uom;
-	
-	@Column(name="fifo")
 	private Boolean fifo;
-	
-	@Column(name="fefo")
 	private Boolean fefo;
 
 	public Long getId() {
@@ -93,4 +72,5 @@ public class Product {
 				+ ", fifo=" + fifo + ", fefo=" + fefo + "]";
 	}
 	
+
 }

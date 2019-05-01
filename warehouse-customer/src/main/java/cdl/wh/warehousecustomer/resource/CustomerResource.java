@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cdl.wh.warehousecommon.proxy.ProductProxy;
 import cdl.wh.warehousecustomer.modal.Customer;
 import cdl.wh.warehousecustomer.service.CustomerService;
 
@@ -27,7 +28,6 @@ import cdl.wh.warehousecustomer.service.CustomerService;
 public class CustomerResource {
 
 	private static Logger log = LoggerFactory.getLogger(CustomerResource.class);
-	
 	
 	@Autowired
 	private CustomerService customerService;
@@ -40,6 +40,7 @@ public class CustomerResource {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		System.out.println(">>" + auth.getAuthorities());
+		
 	
 		List<Customer> result = customerService.getAllCustomer();
 		

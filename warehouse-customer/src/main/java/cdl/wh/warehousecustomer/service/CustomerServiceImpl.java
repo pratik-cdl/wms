@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cdl.wh.warehousecommon.proxy.ProductProxy;
 import cdl.wh.warehousecustomer.modal.Customer;
-import cdl.wh.warehousecustomer.proxy.ProductProxy;
 import cdl.wh.warehousecustomer.repository.CustomerRepository;
 
 @Service

@@ -58,16 +58,10 @@ public class ProductResource {
 	}
 	
 	
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
-	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
-		System.out.println("deleteProduct :: "+id);
-		productService.deleteProduct(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+
 	
 	@PostMapping("/")
-	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_CREATE')")
 	public ResponseEntity<?> createProduct(@RequestBody Product p){
 		System.out.println("createProduct :: "+p);
 		p = productService.addNewProduct(p);
@@ -75,13 +69,20 @@ public class ProductResource {
 	}
 	
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_PRODUCT_VIEW')")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_CREATE')")
 	public ResponseEntity<?> updateProduct(@RequestBody Product p){
 		System.out.println("updateProduct :: "+p);
 		p = productService.updateProduct(p);
 		return new ResponseEntity<>(p,HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_PRODUCT_DELETE')")
+	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
+		System.out.println("deleteProduct :: "+id);
+		productService.deleteProduct(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 	@GetMapping("/test")
 	public ResponseEntity<?> test(){

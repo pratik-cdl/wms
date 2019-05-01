@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cdl.wh.warehouseproduct.modal.Product;
-import cdl.wh.warehouseproduct.proxy.ProductProxy;
 import cdl.wh.warehouseproduct.repository.ProductRepository;
 
 
@@ -18,8 +17,7 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	private ProductRepository productRepository;
 	
-	@Autowired
-	private ProductProxy productProxy;
+
 
 	@Override
 	public List<Product> getAllProduct(Long customerId) {
