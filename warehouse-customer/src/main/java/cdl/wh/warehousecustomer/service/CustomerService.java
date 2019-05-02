@@ -6,7 +6,7 @@ import cdl.wh.warehousecustomer.modal.Customer;
 
 public interface CustomerService {
 
-	List<Customer> getAllCustomer();
+	List<Customer> getAllCustomer(String token);
 	
 	Customer getCustomer(Long customerid);
 	

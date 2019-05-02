@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,11 +28,11 @@ public class CustomerResource {
 	
 	
 	@GetMapping("/")
-	public ResponseEntity<?> getAllCustomers(){
+	public ResponseEntity<?> getAllCustomers(@RequestHeader("Authorization") String token){
 	
 		log.info("getAllCustomers ----------------->");
 		
-		List<Customer> result = customerService.getAllCustomer();
+		List<Customer> result = customerService.getAllCustomer(token);
 		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cdl.wh.warehousecommon.proxy.ProductProxy;
 import cdl.wh.warehousecustomer.modal.Customer;
 import cdl.wh.warehousecustomer.service.CustomerService;
 
@@ -35,14 +35,16 @@ public class CustomerResource {
 	
 	@GetMapping("/all")
 	@PreAuthorize("hasRole('ROLE_WMS_ADMIN')")
-	public ResponseEntity<?> getAllCustomer(){
+	public ResponseEntity<?> getAllCustomer(@RequestHeader("Authorization") String token){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		System.out.println("token :- "+ token);
 		
 		System.out.println(">>" + auth.getAuthorities());
 		
 	
-		List<Customer> result = customerService.getAllCustomer();
+		List<Customer> result = customerService.getAllCustomer(token);
 		
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
